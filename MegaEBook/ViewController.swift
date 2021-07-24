@@ -19,10 +19,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var pageInfoLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     
+    private var timer:Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         selectData(index: 0)
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
+            self.selectData(index: (self.pageControl.currentPage + self.pageControl.numberOfPages + 1) % self.pageControl.numberOfPages)
+        })
     }
     @IBAction func switchAction(_ sender: UISegmentedControl) {
         let value = sender.selectedSegmentIndex
@@ -35,33 +40,32 @@ class ViewController: UIViewController {
     }
     
     @IBAction func preAction(_ sender: UIButton) {
-        selectData(index: pageControl.currentPage - 1)
+        selectData(index: (pageControl.currentPage + pageControl.numberOfPages - 1) % pageControl.numberOfPages)
     }
     
     @IBAction func nextAction(_ sender: UIButton) {
-        selectData(index: pageControl.currentPage + 1)
+        selectData(index: (pageControl.currentPage + pageControl.numberOfPages + 1) % pageControl.numberOfPages)
     }
     
-    @IBAction func swipeAction(_ sender: UISwipeGestureRecognizer) {
-        if sender.direction == .left {
-            selectData(index: pageControl.currentPage - 1)
-        }else if sender.direction == .right {
-            selectData(index: pageControl.currentPage + 1)
-        }
+    @IBAction func leftSwipeAction(){
+        selectData(index: (pageControl.currentPage + pageControl.numberOfPages - 1) % pageControl.numberOfPages)
     }
+
+    @IBAction func rightSwipeAction(){
+        selectData(index: (pageControl.currentPage + pageControl.numberOfPages + 1) % pageControl.numberOfPages)
+    }
+
     @IBAction func longPressAction(_ sender: UILongPressGestureRecognizer) {
         selectData(index:Int.random(in: 0..<pageControl.numberOfPages))
     }
     
     func selectData(index:Int) {
-        if -1 < index,index < data.indices.count {
-            
-            textView.text = data[index]
-            pageControl.currentPage = index
-            segmentedControl.selectedSegmentIndex = index
-            imageView.image = UIImage(named: "Image-\(index+1)")
-            pageInfoLabel.text = "\(pageControl.currentPage + 1)/\(pageControl.numberOfPages)"
-        }
+        
+        textView.text = data[index]
+        pageControl.currentPage = index
+        segmentedControl.selectedSegmentIndex = index
+        imageView.image = UIImage(named: "Image-\(index+1)")
+        pageInfoLabel.text = "\(pageControl.currentPage + 1)/\(pageControl.numberOfPages)"
     }
     
 }

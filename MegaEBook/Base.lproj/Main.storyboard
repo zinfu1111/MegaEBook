@@ -138,12 +138,12 @@
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="WTQ-Wm-MIq"/>
                 <swipeGestureRecognizer direction="right" id="Xkg-b4-r5a">
                     <connections>
-                        <action selector="swipeAction:" destination="BYZ-38-t0r" id="jg8-QQ-dDA"/>
+                        <action selector="rightSwipeAction" destination="BYZ-38-t0r" id="tsb-Rn-GrM"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="left" id="xu9-hg-J59">
                     <connections>
-                        <action selector="swipeAction:" destination="BYZ-38-t0r" id="6nu-tk-OHL"/>
+                        <action selector="leftSwipeAction" destination="BYZ-38-t0r" id="eIm-mu-06f"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="frr-R0-FhW">
